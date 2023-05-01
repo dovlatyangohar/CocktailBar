@@ -1,6 +1,7 @@
 package com.example.cocktailbar.di
 
 import com.example.cocktailbar.core.Constants.Companion.BASE_URL
+import com.example.cocktailbar.data.apiservice.ApiService
 import com.example.cocktailbar.data.repository.DrinksRepositoryImpl
 import com.example.cocktailbar.domain.repository.DrinksRepository
 import org.koin.dsl.module
@@ -14,6 +15,7 @@ val apiModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    single<ApiService> { get<Retrofit>().create(ApiService::class.java) }
 }
 
 val repositoryModule = module {

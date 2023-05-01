@@ -18,7 +18,8 @@ class RandomDrinkViewModel(
     private val _randomDrinkFailure: MutableSharedFlow<String> by lazy { MutableSharedFlow() }
     val randomDrinkFailure = _randomDrinkFailure.asSharedFlow()
 
-    private fun getRandomDrink(){
+
+      fun getRandomDrink(){
         viewModelScope.launch {
             when (val result = callData(
                randomDrinkUseCase()

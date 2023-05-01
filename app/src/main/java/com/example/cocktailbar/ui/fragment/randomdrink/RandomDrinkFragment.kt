@@ -1,6 +1,7 @@
 package com.example.cocktailbar.ui.fragment.randomdrink
 
 
+import android.util.Log
 import com.example.cocktailbar.base.fragment.FragmentBaseNCMVVM
 import com.example.cocktailbar.base.utils.viewBinding
 import com.example.cocktailbar.databinding.FragmentRandomDrinkBinding
@@ -11,16 +12,24 @@ class RandomDrinkFragment : FragmentBaseNCMVVM<RandomDrinkViewModel, FragmentRan
     override val viewModel: RandomDrinkViewModel by viewModel()
     override val binding: FragmentRandomDrinkBinding by viewBinding()
 
-    override fun onView() {
-        super.onView()
-        
-    }
 
     override fun onViewClick() {
         super.onViewClick()
+        binding.root.setOnClickListener {
+            viewModel.getRandomDrink()
+        }
     }
 
     override fun onEach() {
         super.onEach()
+        with(viewModel) {
+            onEach(randomDrinkSuccess) {
+                binding.drinkName.text = it.drinks[0].drinkName
+            }
+            onEach(viewModel.randomDrinkFailure) {
+                Log.i("error:::", it)
+            }
+        }
+
     }
 }
